@@ -76,6 +76,72 @@ class SfopenicTest extends TestCase
 
     }
 
+    public function testCreateOrder()
+    {
+        $array = [
+            'shop_id' => 3243279847393,
+            'shop_order_id' => '123456',//我们这边的订单号
+            'order_source' => '微信',//订单来源(微信，线下，饿了么，美团)
+            'pay_type' => 1,
+            'order_time' => strtotime("2021-06-28 13:11:00"),//用户下单时间
+            'is_appoint' => 0,
+            'is_insured' => 0,
+            'is_person_direct' => 0,
+            'push_time' => time(),
+            'version' => 17,
+            'order_sequence' => '1234',
+            'remark' => '加饭',
+            'return_flag' => '511'
+        ];
+
+        $receive =[
+            'user_name' => "杨晨",
+            'user_phone' => "19951568088",
+            'user_address' => "北京市海淀区学清嘉创大厦A座15层",
+            'user_lng' => '116.352569',
+            'user_lat' => '40.014838',
+        ];
+
+        $order_detail = [
+            'total_price' => 1,//总金额
+            'product_type' => 1, //物品类型 1:送餐 8:饮品
+            'weight_gram' => 100,//物品重量
+            'product_num' => 3,//物品个数
+            'product_type_num' => 1,//物品种类个数
+        ];
+
+        $product_detail = [];
+
+        $product_detail[]=[
+            'product_name'=>'拿铁',//物品名称
+            'product_num' => 1,//物品数量
+        ];
+
+        $order_detail['product_detail'] = $product_detail;
+
+        $array['order_detail'] = $order_detail;
+
+        $array['receive'] = $receive;
+
+        $response = new Response(200, [], '{"success": true}');
+        $client = \Mockery::mock(Client::class);
+
+        $sign = $this->getSign($post_data);
+
+        $url = "{$this->host}/open/api/external/precreateorder?sign={$sign}";
+
+        $client->allows()->post($url, [
+                 'json'=>$post_data
+                ]
+        )->andReturn($response);
+
+        $w = \Mockery::mock(Sfopenic::class, [$this->host,$this->dev_id,$this->dev_key])->makePartial();
+        $w->allows()->getHttpClient()->andReturn($client);
+
+        $this->assertSame(['success' => true], $w->createOrder($post_data));
+
+    }
+
     /**
      * [cancelOrder description]
      * @description
@@ -103,6 +169,13 @@ class SfopenicTest extends TestCase
      */
     public function preCancelOrder($array)
     {
+        $post_data = [
+            'dev_id' => 1524853076,
+            'order_id' => '3407604545392708097',
+            'order_type' => '1',
+            'shop_id' => '3243279847393',
+            'push_time' => time()
+        ];
         $response = $this->clinet_post($action = 'precancelorder',$array);
 
         return $response;

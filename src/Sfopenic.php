@@ -5,6 +5,8 @@ use GuzzleHttp\Client;
 
 use Ycstar\Sfopenic\Exceptions\HttpException;
 
+use Ycstar\Sfopenic\Exceptions\InvalidArgumentException;
+
 class Sfopenic
 {
     protected $host;
@@ -33,52 +35,6 @@ class Sfopenic
      */
     public function createOrder(array $data)
     {
-        /*$array = [
-            'dev_id' => $this->dev_id,
-            'shop_id' => $order->store->sf_shop_id,
-            'shop_order_id' => $order->order_num,//我们这边的订单号
-            'order_source' => $order->order_source,//订单来源(微信，线下，饿了么，美团)
-            'pay_type' => 1,
-            'order_time' => strtotime($order->paytime),//用户下单时间
-            'is_appoint' => 0,
-            'is_insured' => 0,
-            'is_person_direct' => 0,
-            'push_time' => time(),
-            'version' => 17,
-            'order_sequence' => $order->verify_code,
-            'remark' => $order->remark
-        ];
-
-        $receive =[
-            'user_name' => $order->user_name,
-            'user_phone' => $order->user_tel,
-            'user_address' => $order->user_address,
-            'user_lng' => $order->longitude,
-            'user_lat' => $order->latitude
-        ];
-
-        $order_detail = [
-            'total_price' => ($order->due)*100,//总金额
-            'product_type' => 1, //物品类型 1:送餐 8:饮品
-            'weight_gram' => 100,//物品重量
-            'product_num' => 3,//物品个数
-            'product_type_num' => 1,//物品种类个数
-        ];
-
-        $product_detail = [];
-        foreach ($order_detail_ids_array as $key => $value) {
-                $order_detail_obj = OrderDetail::where('id','=',$value)->first();
-                $product_detail[]=[
-                    'product_name'=>$order_detail_obj->goods_name,//物品名称
-                    'product_num' => 1,//物品数量
-                ];
-        }
-        $order_detail['product_detail'] = $product_detail;
-
-        $array['order_detail'] = $order_detail;
-
-        $array['receive'] = $receive;*/
-
         try{
 
             $response = $this->clinet_post($action = 'createorder',$data);
@@ -127,6 +83,12 @@ class Sfopenic
      */
     public function cancelOrder(array $data)
     {
+        if(isset($data['order_type']) && $data['order_type'] == 2){
+            if(!isset($data['shop_id']) || !isset($data['shop_type'])){
+                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
         try{
 
             $response = $this->clinet_post($action = 'cancelorder',$data);
@@ -222,6 +184,12 @@ class Sfopenic
      */
     public function listOrderFeed(array $data)
     {
+        if(isset($data['order_type']) && $data['order_type'] == 2){
+            if(!isset($data['shop_id']) || !isset($data['shop_type'])){
+                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
         try{
 
             $response = $this->clinet_post($action = 'listorderfeed',$data);
@@ -246,6 +214,12 @@ class Sfopenic
      */
     public function getOrderStatus(array $data)
     {
+        if(isset($data['order_type']) && $data['order_type'] == 2){
+            if(!isset($data['shop_id']) || !isset($data['shop_type'])){
+                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
         try{
 
             $response = $this->clinet_post($action = 'getorderstatus',$data);
@@ -318,6 +292,12 @@ class Sfopenic
      */
     public function riderLatestPosition(array $data)
     {
+        if(isset($data['order_type']) && $data['order_type'] == 2){
+            if(!isset($data['shop_id']) || !isset($data['shop_type'])){
+                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
         try{
 
             $response = $this->clinet_post($action = 'riderlatestposition',$data);
@@ -342,6 +322,12 @@ class Sfopenic
      */
     public function riderViewV2(array $data)
     {
+        if(isset($data['order_type']) && $data['order_type'] == 2){
+            if(!isset($data['shop_id']) || !isset($data['shop_type'])){
+                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
         try{
 
             $response = $this->clinet_post($action = 'riderviewv2',$data);
@@ -375,7 +361,6 @@ class Sfopenic
         }catch(\Exception $e){
 
            throw new HttpException($e->getMessage(), $e->getCode(), $e);
-
         }
     }
 
@@ -383,6 +368,10 @@ class Sfopenic
 
     public function clinet_post($action,$post_data)
     {   
+        $post_data['dev_id'] = $this->dev_id;
+
+        $post_data['push_time'] = time();
+
         $sign = $this->getSign($post_data);
 
         $url = "{$this->host}/open/api/external/{$action}?sign={$sign}";
