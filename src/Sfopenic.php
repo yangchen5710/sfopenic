@@ -85,7 +85,7 @@ class Sfopenic
     {
         if(isset($data['order_type']) && $data['order_type'] == 2){
             if(!isset($data['shop_id']) || !isset($data['shop_type'])){
-                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                throw new InvalidArgumentException('缺少参数');
             }
         }
 
@@ -186,7 +186,7 @@ class Sfopenic
     {
         if(isset($data['order_type']) && $data['order_type'] == 2){
             if(!isset($data['shop_id']) || !isset($data['shop_type'])){
-                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                throw new InvalidArgumentException('缺少参数');
             }
         }
 
@@ -216,7 +216,7 @@ class Sfopenic
     {
         if(isset($data['order_type']) && $data['order_type'] == 2){
             if(!isset($data['shop_id']) || !isset($data['shop_type'])){
-                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                throw new InvalidArgumentException('缺少参数');
             }
         }
 
@@ -294,7 +294,7 @@ class Sfopenic
     {
         if(isset($data['order_type']) && $data['order_type'] == 2){
             if(!isset($data['shop_id']) || !isset($data['shop_type'])){
-                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                throw new InvalidArgumentException('缺少参数');
             }
         }
 
@@ -324,7 +324,7 @@ class Sfopenic
     {
         if(isset($data['order_type']) && $data['order_type'] == 2){
             if(!isset($data['shop_id']) || !isset($data['shop_type'])){
-                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                throw new InvalidArgumentException('缺少参数');
             }
         }
 
