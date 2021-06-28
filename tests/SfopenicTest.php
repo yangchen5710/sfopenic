@@ -87,7 +87,6 @@ class SfopenicTest extends TestCase
             'is_appoint' => 0,
             'is_insured' => 0,
             'is_person_direct' => 0,
-            'push_time' => time(),
             'version' => 17,
             'order_sequence' => '1234',
             'remark' => '加饭',

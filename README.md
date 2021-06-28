@@ -26,24 +26,210 @@ $ composer require ycstar/sfopenic -vvv
     $sfopenic = new Sfopenic($config);
 ```
 
-## 创建预订单
+## 预创建订单
 ```php
-   $data = [
-        'dev_id' => 'xxxxxxxxxxxx',
+    $data = [
         'shop_id' => 'xxxxxxxxxxxx',
-        'user_lng' => 'xxxxxxxxxxxx',
-        'user_lat' => 'xxxxxxxxxxxx',
-        'user_address' => "xxxxxxxxxxxx",
+        'user_address' => "北京市海淀区学清嘉创大厦A座15层",
+        'user_lng' => '116.352569',
+        'user_lat' => '40.014838',
         'weight' => 100,
         'product_type' => 1,
         'pay_type' => 1,
         'is_appoint' => 0,
         'is_insured' => 0,
-        'is_person_direct' => 0,
-        'push_time' => time()
+        'is_person_direct' => 0
     ];
 
     $res = $sfopenic->preCreateOrder($data);
+```
+
+## 创建订单
+```php
+    $array = [
+        'shop_id' => 'xxxxxxxxxxxx',
+        'shop_order_id' => 'xxxxxxxxxxxx',
+        'order_source' => 'xx',
+        'pay_type' => 1,
+        'order_time' => time(),
+        'is_appoint' => 0,
+        'is_insured' => 0,
+        'is_person_direct' => 0,
+        'version' => 17,
+        'order_sequence' => 'xx',
+        'remark' => 'xx'
+    ];
+
+    $receive =[
+        'user_name' => "xx",
+        'user_phone' => "xxxxxxxxxx",
+        'user_address' => "北京市海淀区学清嘉创大厦A座15层",
+        'user_lng' => '116.352569',
+        'user_lat' => '40.014838',
+    ];
+
+    $order_detail = [
+        'total_price' => 1,//总金额
+        'product_type' => 1, //物品类型 1:送餐 8:饮品
+        'weight_gram' => 100,//物品重量
+        'product_num' => 3,//物品个数
+        'product_type_num' => 1,//物品种类个数
+    ];
+
+    $product_detail[]=[
+        'product_name'=>'xxx',//物品名称
+        'product_num' => 1,//物品数量
+    ];
+
+    $order_detail['product_detail'] = $product_detail;
+
+    $array['order_detail'] = $order_detail;
+
+    $array['receive'] = $receive;
+
+    $res = $sfopenic->createOrder($data);
+```
+
+## 取消订单
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+        'cancel_code' => 313, //不填时默认cancel_code=313,cancel_reason=商家发起取消
+        'cancel_reason' => ''
+    ];
+
+    $res = $sfopenic->cancelOrder($data);
+```
+
+## 预取消订单
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+        'cancel_reason' => ''
+    ];
+
+    $res = $sfopenic->preCancelOrder($data);
+```
+
+## 订单加小费
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+        'gratuity_fee' => 0
+    ];
+
+    $res = $sfopenic->addOrderGratuityFee($data);
+```
+
+## 获取订单加小费信息
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->getOrderGratuityFee($data);
+```
+
+## 订单状态流查询
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->listOrderFeed($data);
+```
+
+## 订单实时信息查询
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->getOrderStatus($data);
+```
+
+## 催单
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->reminderOrder($data);
+```
+
+## 改单
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+        'user_name'=> '',
+        'user_phone'=> '',
+        'user_address'=> '',
+        'lbs_type'=> 2, //1：百度坐标，2：高德坐标（默认值为2，下面的经纬度依赖这个坐标系，不传默认高德）
+        'user_lng'=> '', //传入用户地址经纬度顺丰侧则不根据用户地址解析
+        'user_lat'=> '',
+    ];
+
+    $res = $sfopenic->changeOrder($data);
+```
+
+## 获取配送员实时坐标接口
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->riderLatestPosition($data);
+```
+
+## 获取配送员轨迹H5
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->riderViewV2($data);
+```
+
+## 订单回调详情
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+    ];
+
+    $res = $sfopenic->getCallbackInfo($data);
 ```
 
 ## 在laravel中使用
