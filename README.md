@@ -62,7 +62,7 @@ $ composer require ycstar/sfopenic -vvv
 ```php
     SF_OPENIC_HOST = xxxxxxxxxxxx
     SF_OPENIC_DEV_ID = xxxxxxxxxxxx
-    SF_OPENIC_DEV_ID = xxxxxxxxxxxx
+    SF_OPENIC_DEV_KEY = xxxxxxxxxxxx
 ```
 可以用两种方式来获取 Ycstar\Sfopenic\Sfopenic 实例：
 
