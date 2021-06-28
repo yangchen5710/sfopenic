@@ -83,7 +83,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'createorder',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -107,7 +107,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'precreateorder',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -131,7 +131,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'cancelorder',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -155,7 +155,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'precancelorder',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -178,7 +178,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'addordergratuityfee',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -202,7 +202,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'getordergratuityfee',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -226,7 +226,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'listorderfeed',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -250,7 +250,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'getorderstatus',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -274,7 +274,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'reminderorder',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -298,7 +298,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'changeorder',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -322,7 +322,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'riderlatestposition',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -346,7 +346,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'riderviewv2',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
@@ -370,7 +370,7 @@ class Sfopenic
 
             $response = $this->clinet_post($action = 'getcallbackinfo',$data);
 
-            return $response;
+            return json_decode($response,true);
 
         }catch(\Exception $e){
 
