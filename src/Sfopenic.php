@@ -31,7 +31,7 @@ class Sfopenic
      * @param       [type]                   $array [description]
      * @return      [type]                          [description]
      */
-    public function createOrder($array)
+    public function createOrder(array $data)
     {
         /*$array = [
             'dev_id' => $this->dev_id,
@@ -81,17 +81,15 @@ class Sfopenic
 
         try{
 
-            $response = $this->clinet_post($action = 'createorder',$array);
+            $response = $this->clinet_post($action = 'createorder',$data);
 
             return $response;
 
         }catch(\Exception $e){
 
-             throw new HttpException($e->getMessage(), $e->getCode(), $e);
+            throw new HttpException($e->getMessage(), $e->getCode(), $e);
 
         }
-
-
     }
 
     /**
@@ -103,26 +101,11 @@ class Sfopenic
      * @param       [type]                   $array [description]
      * @return      [type]                          [description]
      */
-    public function preCreateOrder($array)
+    public function preCreateOrder(array $data)
     {
-        /*$array = [
-            'dev_id' => $this->dev_id,
-            'shop_id' => $order->store->sf_shop_id,
-            'user_lng' => '121.1324121231',
-            'user_lat' => '35.1324121231',
-            'user_address' => "上海市人民广场",
-            'weight' => 100
-            'product_type' => 1
-            'pay_type' => 1,
-            'is_appoint' => 0,
-            'is_insured' => 0,
-            'is_person_direct' => 0,
-            'push_time' => time()
-        ];*/
-
         try{
 
-            $response = $this->clinet_post($action = 'precreateorder',$array);
+            $response = $this->clinet_post($action = 'precreateorder',$data);
 
             return $response;
 
@@ -131,8 +114,6 @@ class Sfopenic
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
 
         }
-
-
     }
 
     /**
@@ -144,11 +125,19 @@ class Sfopenic
      * @param       [type]                   $array [description]
      * @return      [type]                          [description]
      */
-    public function cancelOrder($array)
+    public function cancelOrder(array $data)
     {
-        $response = $this->clinet_post($action = 'cancelorder',$array);
+        try{
 
-        return $response;
+            $response = $this->clinet_post($action = 'cancelorder',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
     }
 
     /**
@@ -160,11 +149,234 @@ class Sfopenic
      * @param       [type]                   $array [description]
      * @return      [type]                          [description]
      */
-    public function preCancelOrder($array)
+    public function preCancelOrder(array $data)
     {
-        $response = $this->clinet_post($action = 'precancelorder',$array);
+        try{
 
-        return $response;
+            $response = $this->clinet_post($action = 'precancelorder',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [addOrderGratuityFee description]
+     * @description
+     * 订单加小费
+     * @author ycstar
+     * @dateTime    2021-06-28T14:20:32+0800
+     * @param       [type]                   $array [description]
+     */
+    public function addOrderGratuityFee(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'addordergratuityfee',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [getOrderGratuityFee description]
+     * @description
+     * 获取订单加小费信息
+     * @author ycstar
+     * @dateTime    2021-06-28T14:22:48+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function getOrderGratuityFee(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'getordergratuityfee',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [listOrderFeed description]
+     * @description
+     * 订单状态流查询
+     * @author ycstar
+     * @dateTime    2021-06-28T14:24:10+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function listOrderFeed(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'listorderfeed',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [getOrderStatus description]
+     * @description
+     * 订单实时信息查询
+     * @author ycstar
+     * @dateTime    2021-06-28T14:25:16+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function getOrderStatus(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'getorderstatus',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [reminderorder description]
+     * @description
+     * 催单
+     * @author ycstar
+     * @dateTime    2021-06-28T14:25:56+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function reminderOrder(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'reminderorder',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [changeOrder description]
+     * @description
+     * 改单
+     * @author ycstar
+     * @dateTime    2021-06-28T14:27:21+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function changeOrder(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'changeorder',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [riderLatestPosition description]
+     * @description
+     * 获取配送员实时坐标
+     * @author ycstar
+     * @dateTime    2021-06-28T14:28:23+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function riderLatestPosition(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'riderlatestposition',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [riderViewV2 description]
+     * @description
+     * 获取配送员轨迹H5
+     * @author ycstar
+     * @dateTime    2021-06-28T14:29:44+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function riderViewV2(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'riderviewv2',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
+    }
+
+    /**
+     * [getCallbackInfo description]
+     * @description
+     * 订单回调详情
+     * @author ycstar
+     * @dateTime    2021-06-28T14:30:28+0800
+     * @param       [type]                   $array [description]
+     * @return      [type]                          [description]
+     */
+    public function getCallbackInfo(array $data)
+    {
+        try{
+
+            $response = $this->clinet_post($action = 'getcallbackinfo',$data);
+
+            return $response;
+
+        }catch(\Exception $e){
+
+           throw new HttpException($e->getMessage(), $e->getCode(), $e);
+
+        }
     }
 
 
