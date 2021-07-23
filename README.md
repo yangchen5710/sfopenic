@@ -1,6 +1,6 @@
 <h1 align="center"> sfopenic </h1>
 
-<p align="center"> 顺丰同城开放平台SDK.</p>
+<p align="center"> 顺丰同城开放平台SDK </p>
 
 
 ## 安装
@@ -12,6 +12,11 @@ $ composer require ycstar/sfopenic -vvv
 ## 配置
 
 在使用本扩展之前,你需要去[顺丰同城开放平台](http://commit-openic.sf-express.com/open/api/docs/index#/homepage)注册账号,然后申请开发者ID,获取相应的配置
+
+使用下面的命令来导出配置文件
+```php
+php artisan vendor:publish --tag="ycstar-sfopenic"
+```
 
 ## 使用
 ```php
