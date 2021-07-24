@@ -281,7 +281,7 @@ php artisan vendor:publish --tag="ycstar-sfopenic"
     .
     public function preCreateOrder()
     {
-        $res = app('sfopenic')->>preCreateOrder($data);
+        $res = app('sfopenic')->preCreateOrder($data);
     }
     .
     .
