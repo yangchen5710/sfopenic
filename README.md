@@ -13,11 +13,6 @@ $ composer require ycstar/sfopenic -vvv
 
 在使用本扩展之前,你需要去[顺丰同城开放平台](http://commit-openic.sf-express.com/open/api/docs/index#/homepage)注册账号,然后申请开发者ID,获取相应的配置
 
-使用下面的命令来导出配置文件
-```php
-php artisan vendor:publish --tag="ycstar-sfopenic"
-```
-
 ## 使用
 ```php
     use Ycstar\Sfopenic\Sfopenic;
@@ -238,16 +233,25 @@ php artisan vendor:publish --tag="ycstar-sfopenic"
 ```
 
 ## 在laravel中使用
-在 Laravel 中使用也是同样的安装方式，配置写在 config/services.php 中:
+
+在 Laravel 中使用也是同样的安装方式，
+
+使用下面的命令来导出配置文件
 ```php
-    .
-    .
-    .
-    'sfopenic' => [
+php artisan vendor:publish --tag="ycstar-sfopenic"
+```
+
+配置写在 config/sfopenic.php 中:
+```php
+    return [
+    
         'host' => env('SF_OPENIC_HOST'),
+
         'dev_id' => env('SF_OPENIC_DEV_ID'),
+
         'dev_key' => env('SF_OPENIC_DEV_KEY')
-    ],
+
+      ];
 ```
 然后在 .env 中配置 SF_OPENIC_HOST, SF_OPENIC_DEV_ID, SF_OPENIC_DEV_KEY:
 ```php
