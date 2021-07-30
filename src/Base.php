@@ -25,12 +25,16 @@ class Base
     }
 
     public function request($method,array $options = [])
-    {
+    {   
+        $options['dev_id'] = $this->dev_id;
+
+        $options['push_time'] = time();
+
     	$this->setOptions($options);
 
     	$response = $this->getHttpClient()->post($this->getUrl($method), [
             'query' => [
-                'sign' => $this->getSign(),
+                'sign' => $this->getSign($this->getOptions()),
             ],
             'json' => $this->getOptions()
         ])->getBody()->getContents();
@@ -40,10 +44,6 @@ class Base
 
     public function setOptions($options = [])
     {
-    	$options['dev_id'] = $this->dev_id;
-
-        $options['push_time'] = time();
-
     	$this->options = $options;
     }
 
@@ -57,9 +57,9 @@ class Base
     	return $this->options;
     }
 
-    public function getSign()
+    public function getSign(array $options)
     {
-        $signChar  = json_encode($this->getOptions()) . "&{$this->dev_id}&{$this->dev_key}";
+        $signChar  = json_encode($options) . "&{$this->dev_id}&{$this->dev_key}";
 
         return base64_encode(MD5($signChar));
     }
