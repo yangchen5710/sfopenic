@@ -2,6 +2,7 @@
 namespace Ycstar\Sfopenic;
 
 use GuzzleHttp\Client;
+use Ycstar\Sfopenic\Exceptions\InvalidResponseException;
 
 class Base
 {
@@ -62,6 +63,29 @@ class Base
         $signChar  = $options . "&{$this->dev_id}&{$this->dev_key}";
 
         return base64_encode(MD5($signChar));
+    }
+
+    /**
+     * 获取回调数据
+     * @return array
+     * @throws InvalidResponseException
+     */
+    public function getNotify()
+    {
+        $data = file_get_contents('php://input');
+        if (isset(request()->sign) && $this->getSign($data) === request()->sign) {
+            return json_decode($data,true);
+        }
+        throw new InvalidResponseException('Invalid Notify');
+    }
+
+    /**
+     * 获取回调数据回复内容
+     * @return array
+     */
+    public function getNotifySuccessReply()
+    {
+        return ['error_code'=>0,'error_msg'=>'success'];
     }
 
 	public function getHttpClient()

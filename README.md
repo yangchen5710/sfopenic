@@ -232,6 +232,15 @@ $ composer require ycstar/sfopenic -vvv
     $res = $sfopenic->getCallbackInfo($data);
 ```
 
+## 获取回调数据及回复内容
+```php
+    $data = $sfopenic->getNotify();
+    .
+    .
+    .
+    return $sfopenic->getNotifySuccessReply();
+```
+
 ## 在laravel中使用
 
 在 Laravel 中使用也是同样的安装方式，
