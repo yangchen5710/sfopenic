@@ -46,7 +46,7 @@ $ composer require ycstar/sfopenic -vvv
 
 ## 创建订单
 ```php
-    $array = [
+    $data = [
         'shop_id' => 'xxxxxxxxxxxx',
         'shop_order_id' => 'xxxxxxxxxxxx',
         'order_source' => 'xx',
@@ -83,9 +83,9 @@ $ composer require ycstar/sfopenic -vvv
 
     $order_detail['product_detail'] = $product_detail;
 
-    $array['order_detail'] = $order_detail;
+    $data['order_detail'] = $order_detail;
 
-    $array['receive'] = $receive;
+    $data['receive'] = $receive;
 
     $res = $sfopenic->createOrder($data);
 ```
@@ -140,6 +140,16 @@ $ composer require ycstar/sfopenic -vvv
     ];
 
     $res = $sfopenic->getOrderGratuityFee($data);
+```
+
+## 获取账户余额
+```php
+    $data = [
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1表示顺丰店铺，2表示第三方店铺
+    ];
+
+    $res = $sfopenic->getshopaccountbalance($data);
 ```
 
 ## 订单状态流查询
@@ -218,6 +228,19 @@ $ composer require ycstar/sfopenic -vvv
     ];
 
     $res = $sfopenic->riderViewV2($data);
+```
+
+## 商家告知餐品制作完成接口
+```php
+    $data = [
+        'order_id' => 'xxxxxxxxxxxx',
+        'order_type' => 1 //1、顺丰订单号 2、商家订单号
+        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
+        'shop_type' => 1, //1、顺丰店铺ID 2、接入方店铺ID
+        'notice_ready_time' => 'xxxxxxxxxxxx' //货物准备好时间，秒级时间戳
+    ];
+
+    $res = $sfopenic->notifyproductready($data);
 ```
 
 ## 订单回调详情
