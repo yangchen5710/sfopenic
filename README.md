@@ -149,7 +149,7 @@ $ composer require ycstar/sfopenic -vvv
         'shop_type' => 1, //1表示顺丰店铺，2表示第三方店铺
     ];
 
-    $res = $sfopenic->getshopaccountbalance($data);
+    $res = $sfopenic->getShopAccountBalance($data);
 ```
 
 ## 订单状态流查询
@@ -240,7 +240,7 @@ $ composer require ycstar/sfopenic -vvv
         'notice_ready_time' => 'xxxxxxxxxxxx' //货物准备好时间，秒级时间戳
     ];
 
-    $res = $sfopenic->notifyproductready($data);
+    $res = $sfopenic->notifyProductReady($data);
 ```
 
 ## 订单回调详情

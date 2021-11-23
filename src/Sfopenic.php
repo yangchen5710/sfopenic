@@ -25,8 +25,8 @@ class Sfopenic extends Base
         'riderLatestPosition',
         'riderViewV2',
         'getCallbackInfo',
-        'notifyproductready',
-        'getshopaccountbalance'
+        'notifyProductReady',
+        'getShopAccountBalance'
     ];
 
     public function __call($method, array $arguments)
