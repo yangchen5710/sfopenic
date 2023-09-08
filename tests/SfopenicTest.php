@@ -2,9 +2,7 @@
 namespace Ycstar\Sfopenic\Tests;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
-use Mockery\Matcher\AnyArgs;
 use Ycstar\Sfopenic\Exceptions\HttpException;
 use Ycstar\Sfopenic\Sfopenic;
 use PHPUnit\Framework\TestCase;
@@ -50,30 +48,17 @@ class SfopenicTest extends TestCase
 
         $url = "{$this->host}/open/api/external/precreateorder?sign={$sign}";
 
-        $client->allows()->post($url, [
-                 'json'=>$post_data
-                ]
+        $client->allows()->post(
+            $url,
+            [
+                'json'=>$post_data
+            ]
         )->andReturn($response);
 
         $w = \Mockery::mock(Sfopenic::class, [$this->host,$this->dev_id,$this->dev_key])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
         $this->assertSame(['success' => true], $w->preCreateOrder($post_data));
-
-
-
-        /*try{
-
-            $response = $this->clinet_post($action = 'precreateorder',$array);
-            return $response;
-
-        }catch(\Exception $e){
-
-            throw new HttpException($e->getMessage(), $e->getCode(), $e);
-
-        }*/
-
-
     }
 
     public function testCreateOrder()
@@ -129,16 +114,17 @@ class SfopenicTest extends TestCase
 
         $url = "{$this->host}/open/api/external/precreateorder?sign={$sign}";
 
-        $client->allows()->post($url, [
-                 'json'=>$post_data
-                ]
+        $client->allows()->post(
+            $url,
+            [
+                'json'=>$post_data
+            ]
         )->andReturn($response);
 
         $w = \Mockery::mock(Sfopenic::class, [$this->host,$this->dev_id,$this->dev_key])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
 
         $this->assertSame(['success' => true], $w->createOrder($post_data));
-
     }
 
     /**
@@ -152,7 +138,7 @@ class SfopenicTest extends TestCase
      */
     public function cancelOrder($array)
     {
-        $response = $this->clinet_post($action = 'cancelorder',$array);
+        $response = $this->clinet_post($action = 'cancelorder', $array);
 
         return $response;
     }
@@ -175,22 +161,24 @@ class SfopenicTest extends TestCase
             'shop_id' => '3243279847393',
             'push_time' => time()
         ];
-        $response = $this->clinet_post($action = 'precancelorder',$array);
+        $response = $this->clinet_post($action = 'precancelorder', $array);
 
         return $response;
     }
 
 
 
-    public function clinet_post($action,$post_data)
+    public function clinet_post($action, $post_data)
     {
         $sign = $this->getSign($post_data);
 
         $url = "{$this->host}/open/api/external/{$action}?sign={$sign}";
 
-        $data = $this->getHttpClient()->post($url, [
-                 'json'=>$post_data
-                ]
+        $data = $this->getHttpClient()->post(
+            $url,
+            [
+                'json'=>$post_data
+            ]
         )->getBody()->getContents();
 
         return $data;
@@ -214,9 +202,4 @@ class SfopenicTest extends TestCase
     {
         $this->guzzleOptions = $options;
     }
-
-
 }
-
-
-

@@ -20,11 +20,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
 
     public function register()
-    {   
+    {
         $this->setupConfig();
 
-        $this->app->singleton(Sfopenic::class, function(){
-            return new Sfopenic(config('sfopenic.host'),config('sfopenic.dev_id'),config('sfopenic.dev_key'));
+        $this->app->singleton(Sfopenic::class, function () {
+            return new Sfopenic(config('sfopenic.host'), config('sfopenic.dev_id'), config('sfopenic.dev_key'));
         });
 
         $this->app->alias(Sfopenic::class, 'sfopenic');

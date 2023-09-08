@@ -6,7 +6,7 @@ use Ycstar\Sfopenic\Exceptions\InvalidResponseException;
 
 class Base
 {
-	protected $host;
+    protected $host;
 
     protected $dev_id;
 
@@ -25,37 +25,37 @@ class Base
         $this->dev_key = $dev_key;
     }
 
-    public function request($method,array $options = [])
-    {   
+    public function request($method, array $options = [])
+    {
         $options['dev_id'] = $this->dev_id;
 
         $options['push_time'] = time();
 
-    	$this->setOptions($options);
+        $this->setOptions($options);
 
-    	$response = $this->getHttpClient()->post($this->getUrl($method), [
+        $response = $this->getHttpClient()->post($this->getUrl($method), [
             'query' => [
                 'sign' => $this->getSign(json_encode($this->getOptions())),
             ],
             'json' => $this->getOptions()
         ])->getBody()->getContents();
 
-        return json_decode($response,true);
+        return json_decode($response, true);
     }
 
     public function setOptions($options = [])
     {
-    	$this->options = $options;
+        $this->options = $options;
     }
 
     public function getUrl($method)
     {
-    	return $this->host.'/open/api/external/'.strtolower($method);
+        return $this->host.'/open/api/external/'.strtolower($method);
     }
 
     public function getOptions()
     {
-    	return $this->options;
+        return $this->options;
     }
 
     public function getSign($options)
@@ -74,7 +74,7 @@ class Base
     {
         $data = file_get_contents('php://input');
         if (isset(request()->sign) && $this->getSign($data) === request()->sign) {
-            return json_decode($data,true);
+            return json_decode($data, true);
         }
         throw new InvalidResponseException('Invalid Notify');
     }
@@ -88,7 +88,7 @@ class Base
         return ['error_code'=>0,'error_msg'=>'success'];
     }
 
-	public function getHttpClient()
+    public function getHttpClient()
     {
         return new Client($this->guzzleOptions);
     }
@@ -96,6 +96,5 @@ class Base
     public function setGuzzleOptions(array $options)
     {
         $this->guzzleOptions = $options;
-    } 
-
+    }
 }
