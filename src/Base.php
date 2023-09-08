@@ -68,15 +68,10 @@ class Base
     /**
      * 获取回调数据
      * @return array
-     * @throws InvalidResponseException
      */
     public function getNotify()
     {
-        $data = file_get_contents('php://input');
-        if (isset(request()->sign) && $this->getSign($data) === request()->sign) {
-            return json_decode($data, true);
-        }
-        throw new InvalidResponseException('Invalid Notify');
+        return json_decode(file_get_contents('php://input'), true);
     }
 
     /**

@@ -25,8 +25,8 @@ $ composer require ycstar/sfopenic -vvv
 
     $sfopenic = new Sfopenic($config);
 ```
-
-## 预创建订单
+# 订单管理
+## 预创建订单（店铺）
 ```php
     $data = [
         'shop_id' => 'xxxxxxxxxxxx',
@@ -43,8 +43,47 @@ $ composer require ycstar/sfopenic -vvv
 
     $res = $sfopenic->preCreateOrder($data);
 ```
+## 预创建订单（企业）
+```php
+    $data = [
+        'company_id' => 'xxxxxxxxxxxx',
+        'settlement_type' => 0,
+        'city_name' => "北京",
+        'account_phone' => 'xxxxxxxxxxxx',
+        'is_insured' => 0,
+        'is_appoint' => 0,
+    ];
+    
+    $sender =[
+        'sender_name' => "xx",
+        'sender_phone' => "xxxxxxxxxx",
+        'sender_address' => "北京市海淀区学清嘉创大厦A座15层",
+        'sender_lng' => '116.352569',
+        'sender_lat' => '40.014838',
+    ];
+    
+    $receiver =[
+        'receiver_name' => "xx",
+        'receiver_phone' => "xxxxxxxxxx",
+        'receiver_address' => "北京市海淀区学清嘉创大厦A座15层",
+        'receiver_lng' => '116.352569',
+        'receiver_lat' => '40.014838',
+    ];
 
-## 创建订单
+    $orderDetail = [
+        'total_price' => 1,//总金额
+        'product_type' => 1, //物品类型 1:送餐 8:饮品
+        'weight_gram' => 100,//物品重量
+    ];
+    
+    $data['sender'] = $sender;
+    $data['receiver'] = $receiver;
+    $data['order_detail'] = $orderDetail;
+    
+    $res = $sfopenic->preCreateOrder4C($data);
+```
+
+## 创建订单（店铺）
 ```php
     $data = [
         'shop_id' => 'xxxxxxxxxxxx',
@@ -68,7 +107,7 @@ $ composer require ycstar/sfopenic -vvv
         'user_lat' => '40.014838',
     ];
 
-    $order_detail = [
+    $orderDetail = [
         'total_price' => 1,//总金额
         'product_type' => 1, //物品类型 1:送餐 8:饮品
         'weight_gram' => 100,//物品重量
@@ -76,18 +115,59 @@ $ composer require ycstar/sfopenic -vvv
         'product_type_num' => 1,//物品种类个数
     ];
 
-    $product_detail[]=[
-        'product_name'=>'xxx',//物品名称
-        'product_num' => 1,//物品数量
+    $productDetail = [
+        [
+            'product_name' => 'xxx', //物品名称
+            'product_num' => 1, //物品数量
+        ]
     ];
 
-    $order_detail['product_detail'] = $product_detail;
-
-    $data['order_detail'] = $order_detail;
-
+    $orderDetail['product_detail'] = $productDetail;
+    $data['order_detail'] = $orderDetail;
     $data['receive'] = $receive;
 
     $res = $sfopenic->createOrder($data);
+```
+
+## 创建订单（企业）
+```php
+    $data = [
+        'user_order_id' => 'xxxxxxxxxxxx',
+        'company_id' => 'xxxxxxxxxxxx',
+        'settlement_type' => 0,
+        'city_name' => "北京",
+        'account_phone' => 'xxxxxxxxxxxx',
+        'is_insured' => 0,
+        'is_appoint' => 0,
+    ];
+    
+    $sender =[
+        'sender_name' => "xx",
+        'sender_phone' => "xxxxxxxxxx",
+        'sender_address' => "北京市海淀区学清嘉创大厦A座15层",
+        'sender_lng' => '116.352569',
+        'sender_lat' => '40.014838',
+    ];
+    
+    $receiver =[
+        'receiver_name' => "xx",
+        'receiver_phone' => "xxxxxxxxxx",
+        'receiver_address' => "北京市海淀区学清嘉创大厦A座15层",
+        'receiver_lng' => '116.352569',
+        'receiver_lat' => '40.014838',
+    ];
+
+    $orderDetail = [
+        'total_price' => 1,//总金额
+        'product_type' => 1, //物品类型 1:送餐 8:饮品
+        'weight_gram' => 100,//物品重量
+    ];
+    
+    $data['sender'] = $sender;
+    $data['receiver'] = $receiver;
+    $data['order_detail'] = $orderDetail;
+    
+    $res = $sfopenic->createOrder4C($data);
 ```
 
 ## 取消订单
@@ -140,16 +220,6 @@ $ composer require ycstar/sfopenic -vvv
     ];
 
     $res = $sfopenic->getOrderGratuityFee($data);
-```
-
-## 获取账户余额
-```php
-    $data = [
-        'shop_id' => 0,   //order_type=2时必传shop_id与shop_type
-        'shop_type' => 1, //1表示顺丰店铺，2表示第三方店铺
-    ];
-
-    $res = $sfopenic->getShopAccountBalance($data);
 ```
 
 ## 订单状态流查询
@@ -242,8 +312,39 @@ $ composer require ycstar/sfopenic -vvv
 
     $res = $sfopenic->notifyProductReady($data);
 ```
+# 店铺管理
 
-## 订单回调详情
+## 获取店铺账户余额
+```php
+    $data = [
+        'shop_id' => 0,   //店铺ID
+        'shop_type' => 1, //1表示顺丰店铺，2表示第三方店铺 默认1 非必填
+    ];
+
+    $res = $sfopenic->getShopAccountBalance($data);
+```
+
+## 获取企业信息
+```php
+    $data = [
+        'company_id' => 0,   //企业ID
+    ];
+
+    $res = $sfopenic->getCompanyInfo($data);
+```
+
+## 获取店铺信息
+```php
+    $data = [
+        'shop_id' => 0,   //店铺ID
+        'shop_type' => 1, //1表示顺丰店铺，2表示第三方店铺 默认1 非必填
+    ];
+
+    $res = $sfopenic->getShopInfo($data);
+```
+
+
+# 回调相关
 ```php
     $data = [
         'order_id' => 'xxxxxxxxxxxx',
