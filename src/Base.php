@@ -67,7 +67,7 @@ class Base
 
     /**
      * 获取回调数据
-     * @return array
+     * @return json
      */
     public function getNotify()
     {
