@@ -80,7 +80,7 @@ class Base
      */
     public function getNotifySuccessReply()
     {
-        return ['error_code'=>0,'error_msg'=>'success'];
+        return json_encode(['error_code'=>0,'error_msg'=>'success']);
     }
 
     public function getHttpClient()
