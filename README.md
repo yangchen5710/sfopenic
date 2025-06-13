@@ -10,8 +10,11 @@ $ composer require ycstar/sfopenic -vvv
 ```
 
 ## 配置
+⚠️ 注意：本项目的开放平台地址已于 2025 年 6 月更新为：https://openic.sf-express.com/#/homepage
 
-在使用本扩展之前,你需要去[顺丰同城开放平台](http://commit-openic.sf-express.com/open/api/docs/index#/homepage)注册账号,然后申请开发者ID,获取相应的配置
+旧版本中的地址（如 https://commit-openic.sf-express.com/open/api/docs/index#/homepage) 已失效，请勿使用。
+
+在使用本扩展之前,你需要去[顺丰同城开放平台](https://openic.sf-express.com/#/homepage)注册账号,然后申请开发者ID,获取相应的配置
 
 ## 使用
 ```php
